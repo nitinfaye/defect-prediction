@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Defect Prediction</title>
+    <link rel="stylesheet" href="">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+</head>
+<body class="bg-dark">
+    <div class="container">
+        <div class="row">
+            <div class="card mt-50" style="width=100%; height=100%">
+                <div class="card-header" style="text-align: center">
+                    <h1>Welcome to Defect Prediction</h1>
+                </div>
+                <div class="card-body">
+                    <div class="col-12" style="text-align: center">
+                        <h5>This app predicts the Defect. Try filling the details below:</h5>
+                    </div>
+                    <br>
+                    <form method="post" accept-charset="utf-8" name="ModelForm">
+                        <div class="col-md-10 form-group" style="text-align: center">
+                            <label><strong>Enter the uniq_Op:</strong></label>
+                            <input type="text" class="selectpicker form-control" id="uniq_Op" name="uniq_Op" placeholder="Enter the uniq_Op_Op" onchange="load_defect_models(this.id, 'defect_models')">
+
+
+                        </div>
+                        
+                       
+                        <div class="col-md-10 form-group" style="text-align: center">
+                            <label><strong>Enter the uniq_Opnd:</strong></label>
+                            <<input type ="text" class="selectpicker form-control" id="uniq_Opnd" name="uniq_Opnd" placeholder="Enter the uniq_Opnd_Op">
+
+                        </div>
+
+                        <div class="col-md-10 form-group" style="text-align: center">
+                            <label><strong>Enter of total_Ops:</strong></label>
+                            <input type ="text" class="form-control" id="total_Op" name="total_Op" placeholder="Enter the total_Op">
+                                
+                        </div>
+
+                        <div class="col-md-10 form-group" style="text-align: center">
+                            <label><strong>Enter the total_Opnd:</strong></label>
+                            <<input type ="text" class="form-control" id="total_Opnd" name="total_Opnd" placeholder="Enter the total_Opnd">
+                             >
+                        </div>
+                        <div class="col-md-10 form-group" style="text-align: center">
+                            <label><strong>Enter the Number of branchCount:</strong></label>
+                            <input type="text" class="form-control" id="branchCount" name="branchCount" placeholder="Enter the branchCount">
+                        </div>
+
+                        <div class="col-md-10 form-group" style="text-align: center">
+
+                            <button class="btn btn-primary form-control" onclick="send_data()">Predict Defect</button>
+                        </div>
+                    </form>
+                    <br>
+                    <div class="row">
+                        <div class="col-12" style="text-align: center">
+                            <h4><span id ="prediction"></span></h4>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+<script>
+
+    function load_defect_model(uniq_Op,uniq_Opnd,total_Op,total_Opnd,branchCount) {
+        var uniq_Op = document.getElementById(uniq_Op);
+        var uniq_Opnd = document.getElementById(uniq_Opnd);
+        #car_model.value="";
+        #car_model.innerHTML = "";
+        console.log(uniq_Op.value)        
+                        
+    }
+
+    function form_handler (event) {
+        event.preventDefault();
+    }
+
+    function send_data() {
+        document.querySelector('form').addEventListener('submit', form_handler);
+
+        var fd = new FormData(document.querySelector("form"));
+
+        var xhr = new XMLHttpRequest({mozSystem: true})
+
+        xhr.open('POST', '/predict', true);
+        document.getElementById('prediction').innerHTML="Wait! Predincting the Defect...";
+        xhr.onreadystatechange = function(){
+            if(xhr.readyState == XMLHttpRequest.DONE){
+                document.getElementById('prediction').innerHTML="Prdicted Defect:  "+xhr.responseText;
+            }
+        };
+
+        xhr.onload = function(){};
+
+        xhr.send(fd);
+    }
+
+</script>
+
+</body>
+</html>
