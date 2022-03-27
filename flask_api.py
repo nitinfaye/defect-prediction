@@ -5,7 +5,7 @@ import numpy as np
 
 app = Flask(__name__)
 
-df = pd.read_csv('jm1.csv')
+df = pd.read_csv('clean_jm1.csv')
 model = pickle.load(open('AdaBoostModel.pkl','rb'))
 
 @app.route('/')
